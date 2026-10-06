@@ -171,20 +171,23 @@
       <tr><th class="sh" colspan="2">Informações do Pedido</th></tr>
       <tr><td colspan="2"><b>Pedido de Compra n°</b> <span id="d_num"></span>/2026/FAIFCE</td></tr>
       <tr><td colspan="2"><b>Projeto:</b> <span id="d_proj"></span></td></tr>
-      <tr>
-        <td colspan="2" style="padding:4px 6px">
-          <b>Solicitação:</b>
-          <table class="dit" style="margin-top:4px">
-            <thead><tr>
-              <th style="width:44%;text-align:center">Produto</th>
-              <th style="width:13%">Quantidade</th>
-              <th style="width:14%">Unidade</th>
-              <th style="width:29%">Valor Unitário Sugerido</th>
-            </tr></thead>
-            <tbody id="d_itbody"></tbody>
-          </table>
-        </td>
-      </tr>
+    </table>
+
+    <!-- ITENS EM TABELA INDEPENDENTE PARA PERMITIR QUEBRA ENTRE PÁGINAS -->
+    <div class="items-section">
+      <b>Solicitação:</b>
+      <table class="dit">
+        <thead><tr>
+          <th style="width:44%;text-align:center">Produto</th>
+          <th style="width:13%">Quantidade</th>
+          <th style="width:14%">Unidade</th>
+          <th style="width:29%">Valor Unitário Sugerido</th>
+        </tr></thead>
+        <tbody id="d_itbody"></tbody>
+      </table>
+    </div>
+
+    <table class="dt">
       <tr>
         <td style="width:50%"><b>Data prevista:</b> <span id="d_dtp"></span></td>
         <td style="width:50%"><b>Valor estimado:</b> <span id="d_vest_wrap">R$ </span><span id="d_vest"></span></td>

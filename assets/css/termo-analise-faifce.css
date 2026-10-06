@@ -180,8 +180,31 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;bac
     margin: 0 0 3mm !important;
     font-size: 13pt !important;
   }
-  /* O rodapé institucional extra foi removido da impressão. */
-  #doc .dfoot, .print-dfoot { display: none !important; }
+  /* Mantém o rodapé institucional visível no final do documento. */
+  #doc .dfoot, .print-dfoot {
+    display: block !important;
+    position: static !important;
+    margin-top: 8mm !important;
+    padding-top: 2mm !important;
+    border-top: 0.3mm solid #999;
+    font-size: 6pt !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    color: #333 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .items-section {
+    display: block !important;
+    margin: 0 0 2mm !important;
+    padding: 0 !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .items-section > b {
+    display: block;
+    margin: 1mm 0;
+  }
   .doc-body {
     display: block !important;
     margin: 0 !important;
@@ -206,6 +229,8 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;bac
     table-layout: fixed;
     border-collapse: collapse !important;
     font-size: 7.5pt !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
   .dit th, .dit td {
     padding: 2px 3px !important;
