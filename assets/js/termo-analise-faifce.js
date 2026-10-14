@@ -124,6 +124,7 @@ function renderRubricsPreview() {
       : '';
     return `
     <tr><td colspan="2"><b>Rubrica ${index + 1}:</b> ${h(rubric.n)}</td></tr>
+    ${rubric.m && rubric.m.trim() ? `<tr><td colspan="2"><b>Meta/Etapa:</b> ${h(rubric.m)}</td></tr>` : ''}
     <tr>
       <td><b>Valor total atribuído à Rubrica:</b><br>${h(total)}</td>
       <td><b>Saldo existente na Rubrica:</b><br>${h(saldo)}</td>
@@ -140,6 +141,7 @@ function renderSubsPreview() {
     const vs = sub.vs && String(sub.vs).trim() ? (String(sub.vs).trim().startsWith('R$') ? String(sub.vs).trim() : ('R$ ' + String(sub.vs).trim())) : '';
     return `
     <tr><td colspan="2"><b>Subitem:</b> ${h(sub.n)}</td></tr>
+    ${sub.m && sub.m.trim() ? `<tr><td colspan="2"><b>Meta/Etapa:</b> ${h(sub.m)}</td></tr>` : ''}
     <tr>
       <td><b>Valor total do Subitem:</b><br>${h(vt)}</td>
       <td><b>Saldo existente no Subitem:</b><br>${h(vs)}</td>
@@ -154,13 +156,13 @@ function addItem() {
 }
 
 function addRubric() {
-  rubrics.push({ id: nextRubricId++, n: '', vt: '', vs: '' });
+  rubrics.push({ id: nextRubricId++, n: '', m: '', vt: '', vs: '' });
   renderRubrics();
   upd();
 }
 
 function addSub() {
-  subs.push({ id: nextSubId++, n: '', vt: '', vs: '' });
+  subs.push({ id: nextSubId++, n: '', m: '', vt: '', vs: '' });
   renderSubs();
   upd();
 }
@@ -288,6 +290,7 @@ function renderRubrics() {
       <button type="button" class="rdel" onclick="removeRubric(${rubric.id})" title="Remover rubrica">×</button>
       <div class="rbn">Rubrica ${index + 1}</div>
       <div class="fg"><label>Rubrica que atende ao pedido</label><input type="text" value="${esc(rubric.n)}" data-field="n" oninput="updateRubric(event)" required></div>
+      <div class="fg"><label>Meta/Etapa <span class="opt">(opcional)</span></label><input type="text" value="${esc(rubric.m)}" data-field="m" oninput="updateRubric(event)"></div>
       <div class="fr2">
         <div class="fg"><label>Valor total atribuído à Rubrica</label><input type="text" value="${esc(rubric.vt)}" data-field="vt" oninput="mCurr(this); updateRubric(event)" required></div>
         <div class="fg"><label>Saldo existente na Rubrica</label><input type="text" value="${esc(rubric.vs)}" data-field="vs" oninput="mCurr(this); updateRubric(event)" required></div>
@@ -305,6 +308,7 @@ function renderSubs() {
       <button type="button" class="sdel" onclick="removeSub(${sub.id})" title="Remover subitem">×</button>
       <div class="sbn">Subitem</div>
       <div class="fg"><label>Descrição do subitem</label><input type="text" value="${esc(sub.n)}" data-field="n" oninput="updateSub(event)" required></div>
+      <div class="fg"><label>Meta/Etapa <span class="opt">(opcional)</span></label><input type="text" value="${esc(sub.m)}" data-field="m" oninput="updateSub(event)"></div>
       <div class="fr2">
         <div class="fg"><label>Valor total do Subitem</label><input type="text" value="${esc(sub.vt)}" data-field="vt" oninput="mCurr(this); updateSub(event)" required></div>
         <div class="fg"><label>Saldo existente no Subitem</label><input type="text" value="${esc(sub.vs)}" data-field="vs" oninput="mCurr(this); updateSub(event)" required></div>
@@ -696,9 +700,9 @@ function buildDraft() {
       valorEstimado: document.getElementById('ni_vest').checked,
     },
     valorEstimadoManual: vestManual,
-    rubricas: rubrics.map(r => ({ descricao: r.n, valorTotal: r.vt, saldo: r.vs })),
+    rubricas: rubrics.map(r => ({ descricao: r.n, metaEtapa: r.m || '', valorTotal: r.vt, saldo: r.vs })),
     itens: items.map(i => ({ descricao: i.d, quantidade: i.q, unidade: i.u, valorUnitario: i.v, naoInformado: i.ni })),
-    subitens: subs.map(s => ({ descricao: s.n, valorTotal: s.vt, saldo: s.vs })),
+    subitens: subs.map(s => ({ descricao: s.n, metaEtapa: s.m || '', valorTotal: s.vt, saldo: s.vs })),
     parecer: document.getElementById('parecerEd').innerHTML,
   };
 }
@@ -791,6 +795,7 @@ function normalizeDraft(data) {
     const r = obj(raw);
     return {
       n: txt(r.descricao),
+      m: txt(r.metaEtapa),
       vt: fmtCurr(txt(r.valorTotal, 50)),
       vs: fmtCurr(txt(r.saldo, 50)),
     };
@@ -802,7 +807,7 @@ function normalizeDraft(data) {
     const legacyTotal = fmtCurr(txt(campos.valorTotalRubrica, 50));
     const legacySaldo = fmtCurr(txt(campos.saldoRubrica, 50));
     if (legacyName || legacyTotal || legacySaldo) {
-      normalizedRubrics = [{ n: legacyName, vt: legacyTotal, vs: legacySaldo }];
+      normalizedRubrics = [{ n: legacyName, m: '', vt: legacyTotal, vs: legacySaldo }];
     }
   }
 
@@ -819,7 +824,7 @@ function normalizeDraft(data) {
     }),
     subs: list(data.subitens, 100).map(raw => {
       const s = obj(raw);
-      return { n: txt(s.descricao), vt: fmtCurr(txt(s.valorTotal, 50)), vs: fmtCurr(txt(s.saldo, 50)) };
+      return { n: txt(s.descricao), m: txt(s.metaEtapa), vt: fmtCurr(txt(s.valorTotal, 50)), vs: fmtCurr(txt(s.saldo, 50)) };
     }),
     parecerHtml: cleanParecer(txt(data.parecer, 100000)),
   };

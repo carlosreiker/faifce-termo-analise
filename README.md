@@ -19,7 +19,7 @@ LICENSE
 ## Como usar
 
 1. Abra `index.html` em um navegador.
-2. Preencha os campos do pedido, projeto, itens, subitens e parecer.
+2. Preencha os campos do pedido, projeto, itens, subitens e parecer. Em cada rubrica e subitem há o campo opcional **Meta/Etapa**, que só aparece no documento quando preenchido.
 3. **Valor estimado**: é a soma de `Quantidade × Valor Unitário` de cada item, atualizada ao vivo. Pode ser editado à mão; nesse caso o campo mostra a soma dos itens e o botão "Voltar ao automático".
 4. **Gerar PDF** abre a impressão do navegador com o termo em A4.
 5. **Resetar** limpa todos os dados.
