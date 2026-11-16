@@ -21,8 +21,10 @@ LICENSE
 1. Abra `index.html` em um navegador.
 2. Preencha os campos do pedido, projeto, itens, subitens e parecer. Em cada rubrica e subitem há o campo opcional **Meta/Etapa**, que só aparece no documento quando preenchido.
 3. **Valor estimado**: é a soma de `Quantidade × Valor Unitário` de cada item, atualizada ao vivo. Pode ser editado à mão; nesse caso o campo mostra a soma dos itens e o botão "Voltar ao automático".
-4. **Gerar PDF** abre a impressão do navegador com o termo em A4.
-5. **Resetar** limpa todos os dados.
+4. **Datas**: os campos de data abrem um calendário ao clicar. A data da análise (ao lado do responsável) vem preenchida com o dia de hoje e pode ser alterada.
+5. **Gerar PDF** abre a impressão do navegador com o termo em A4 (margem de 10 mm em cima/embaixo e 12 mm nas laterais). O PDF carrega, em texto invisível, os dados do preenchimento (veja "Rascunhos").
+6. **Enviar e-mail**: abre um rascunho no Gmail com o modelo e os dados do pedido (veja abaixo).
+7. **Resetar** limpa todos os dados.
 
 ## Importar itens por imagem (prints)
 
@@ -39,7 +41,8 @@ O reconhecimento roda no navegador (Tesseract.js): as imagens não são enviadas
 ## Rascunhos (trabalho em equipe)
 
 - **Salvar rascunho** (ou `Ctrl+S`) baixa um arquivo `Termo_<número>_2026.faifce.json` com todo o preenchimento.
-- **Abrir rascunho** carrega um arquivo desse tipo de volta no formulário. Se houver alterações não salvas, o site pede confirmação antes de substituir.
+- **Abrir rascunho** aceita o arquivo `.faifce.json` **ou um Termo de Análise em PDF gerado por este site** (o PDF traz os dados embutidos; PDFs gerados antes desta versão ou por outros programas não podem ser abertos). A leitura do PDF precisa de internet na primeira vez (baixa o pdf.js).
+  Carrega o conteúdo de volta no formulário. Se houver alterações não salvas, o site pede confirmação antes de substituir.
 - O aviso ao fechar a aba só aparece quando há alterações desde o último salvamento ou abertura.
 
 Sugestão de rotina para a equipe:
@@ -50,7 +53,25 @@ Sugestão de rotina para a equipe:
 
 ### Formato do arquivo
 
-JSON legível, com `formato: "faifce-termo-analise"` e `versao: 1`. Ao abrir, o site valida o arquivo e descarta o que não reconhece. No campo Parecer só são mantidos negrito, itálico, sublinhado e quebras de linha. Mudanças futuras no formato aumentam o número de `versao`; rascunhos antigos continuam abrindo.
+JSON legível, com `formato: "faifce-termo-analise"` e `versao: 2`. Ao abrir, o site valida o arquivo e descarta o que não reconhece. No campo Parecer só são mantidos negrito, itálico, sublinhado e quebras de linha. Mudanças futuras no formato aumentam o número de `versao`; rascunhos antigos continuam abrindo.
+
+## Enviar e-mail (Gmail)
+
+O botão **Enviar e-mail** só fica habilitado quando todos os campos obrigatórios estão preenchidos. A janela mostra o passo a passo e fica aberta enquanto você usa o Gmail:
+
+1. **Gerar PDF** e salvar o arquivo.
+2. **Abrir rascunho no Gmail**: abre o Gmail com assunto e mensagem preenchidos (nº do pedido e projeto em negrito visual). O nome do projeto fica copiado.
+3. **Assinatura**: clique no final do texto e use o ícone da caneta (Inserir assinatura) do Gmail.
+4. Ícone do Google Drive › pesquise **1. ATIVOS** › pasta do projeto › **01 | Instrumentos Jurídicos** › **Adicionar como link**; apague a linha de instrução entre colchetes.
+5. Anexe o PDF e informe os destinatários.
+
+Alternativa (link no rodapé da janela): copia o texto com negrito real e abre o Gmail só com o assunto, que então insere a assinatura sozinho; basta clicar no corpo e colar com Ctrl+V.
+
+Limites: o Gmail não coloca a assinatura quando o rascunho abre com texto pronto, não aceita negrito real em rascunhos abertos por link, e não deixa um site anexar arquivos nem inserir a pasta do Drive (só por API com login Google, não adotada). O "Atenciosamente," vem da assinatura do Gmail.
+
+## Publicação
+
+Veja `DEPLOY.md` (Vercel: produção na branch `main` e teste na branch `teste`).
 
 ## Objetivo
 
