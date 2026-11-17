@@ -81,7 +81,7 @@
   <div class="fr2">
     <div class="fg">
       <label>Data prevista</label>
-      <input type="date" id="f_dtp" min="2000-01-01" max="2099-12-31" onclick="openPicker(this)" oninput="upd()" onchange="upd()" required>
+      <div class="dwrap"><input type="text" id="f_dtp" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" autocomplete="off" oninput="formatDate(this); upd()" required><button type="button" class="calbtn" id="f_dtp_btn" onclick="pickDate('f_dtp')" title="Abrir calendário" aria-label="Abrir calendário">📅</button><input type="date" class="calhid" id="f_dtp_cal" min="2000-01-01" max="2099-12-31" tabindex="-1" aria-hidden="true" onchange="dateFromPicker('f_dtp')"></div>
       <div class="ni-row">
         <input type="checkbox" id="ni_dtp" onchange="toggleNI('ni_dtp','f_dtp','d_dtp',false)">
         <span onclick="document.getElementById('ni_dtp').click()">Não informado</span>
@@ -112,8 +112,8 @@
     <div class="fg"><label>Aplicação Financeira</label><input type="text" id="f_vaf" placeholder="R$ 0,00" oninput="mCurr(this); upd()" data-dest="d_vaf" required></div>
   </div>
   <div class="fr2">
-    <div class="fg"><label>Início da vigência</label><input type="date" id="f_iv" min="2000-01-01" max="2099-12-31" onclick="openPicker(this)" oninput="upd()" onchange="upd()" required></div>
-    <div class="fg"><label>Término da vigência</label><input type="date" id="f_tv" min="2000-01-01" max="2099-12-31" onclick="openPicker(this)" oninput="upd()" onchange="upd()" required></div>
+    <div class="fg"><label>Início da vigência</label><div class="dwrap"><input type="text" id="f_iv" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" autocomplete="off" oninput="formatDate(this); upd()" required><button type="button" class="calbtn" id="f_iv_btn" onclick="pickDate('f_iv')" title="Abrir calendário" aria-label="Abrir calendário">📅</button><input type="date" class="calhid" id="f_iv_cal" min="2000-01-01" max="2099-12-31" tabindex="-1" aria-hidden="true" onchange="dateFromPicker('f_iv')"></div></div>
+    <div class="fg"><label>Término da vigência</label><div class="dwrap"><input type="text" id="f_tv" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" autocomplete="off" oninput="formatDate(this); upd()" required><button type="button" class="calbtn" id="f_tv_btn" onclick="pickDate('f_tv')" title="Abrir calendário" aria-label="Abrir calendário">📅</button><input type="date" class="calhid" id="f_tv_cal" min="2000-01-01" max="2099-12-31" tabindex="-1" aria-hidden="true" onchange="dateFromPicker('f_tv')"></div></div>
   </div>
 
   <div class="sl">Rubricas</div>
@@ -148,7 +148,7 @@
 
   <div class="fr2" style="margin-top:10px">
     <div class="fg"><label>Responsável pela análise</label><input type="text" id="f_resp" placeholder="Nome completo" oninput="upd()" required></div>
-    <div class="fg"><label>Data</label><input type="date" id="f_data" min="2000-01-01" max="2099-12-31" onclick="openPicker(this)" oninput="upd()" onchange="upd()" required></div>
+    <div class="fg"><label>Data</label><div class="dwrap"><input type="text" id="f_data" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" autocomplete="off" oninput="formatDate(this); upd()" required><button type="button" class="calbtn" id="f_data_btn" onclick="pickDate('f_data')" title="Abrir calendário" aria-label="Abrir calendário">📅</button><input type="date" class="calhid" id="f_data_cal" min="2000-01-01" max="2099-12-31" tabindex="-1" aria-hidden="true" onchange="dateFromPicker('f_data')"></div></div>
   </div>
 
 </aside>

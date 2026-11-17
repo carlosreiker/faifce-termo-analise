@@ -21,7 +21,7 @@ LICENSE
 1. Abra `index.html` em um navegador.
 2. Preencha os campos do pedido, projeto, itens, subitens e parecer. Em cada rubrica e subitem há o campo opcional **Meta/Etapa**, que só aparece no documento quando preenchido.
 3. **Valor estimado**: é a soma de `Quantidade × Valor Unitário` de cada item, atualizada ao vivo. Pode ser editado à mão; nesse caso o campo mostra a soma dos itens e o botão "Voltar ao automático".
-4. **Datas**: os campos de data abrem um calendário ao clicar. A data da análise (ao lado do responsável) vem preenchida com o dia de hoje e pode ser alterada.
+4. **Datas**: os campos de data aceitam digitação (a barra é colocada sozinha, formato dd/mm/aaaa) e também o calendário, pelo botão 📅 ao lado. Datas incompletas ou inexistentes (ex.: 31/02) deixam o campo inválido. A data da análise (ao lado do responsável) vem preenchida com o dia de hoje e pode ser alterada.
 5. **Gerar PDF** abre a impressão do navegador com o termo em A4 (margem de 10 mm em cima/embaixo e 12 mm nas laterais). O PDF carrega, em texto invisível, os dados do preenchimento (veja "Rascunhos").
 6. **Enviar e-mail**: abre um rascunho no Gmail com o modelo e os dados do pedido (veja abaixo).
 7. **Resetar** limpa todos os dados.
